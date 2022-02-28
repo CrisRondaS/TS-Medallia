@@ -27,7 +27,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import * as medalliaDigitalRn from 'medallia-digital-rn';
+import {MedalliaDigital} from 'medallia-digital-rn';
 
 const configurationSet = {
   androidApiKey: 'HERE_YOUR_API_KEY',
@@ -65,7 +65,7 @@ const App = () => {
   useEffect(() => {
     const initialize = async () => {
       try {
-        const success = medalliaDigitalRn.MedalliaDigital.initialize(
+        const success = MedalliaDigital.initialize(
           Platform.OS === 'ios'
             ? configurationSet.iosApiKey
             : configurationSet.androidApiKey,
