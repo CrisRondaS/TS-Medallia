@@ -8,8 +8,9 @@
  * @format
  */
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
+  Platform,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -26,7 +27,12 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import * as medalliaDigitalRn from 'medallia-digital-rn';
 
+const configurationSet = {
+  androidApiKey: 'HERE_YOUR_API_KEY',
+  iosApiKey: 'HERE_YOUR_API_KEY',
+};
 const Section: React.FC<{
   title: string;
 }> = ({children, title}) => {
@@ -56,6 +62,27 @@ const Section: React.FC<{
 };
 
 const App = () => {
+  useEffect(() => {
+    const initialize = async () => {
+      try {
+        const success = medalliaDigitalRn.MedalliaDigital.initialize(
+          Platform.OS === 'ios'
+            ? configurationSet.iosApiKey
+            : configurationSet.androidApiKey,
+        );
+
+        console.log('_______________________');
+        console.log(success, Platform.OS);
+        console.log('_______________________');
+      } catch (error) {
+        console.log('********************');
+        console.log(error, Platform.OS);
+        console.log('********************');
+      }
+    };
+
+    initialize();
+  }, []);
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
